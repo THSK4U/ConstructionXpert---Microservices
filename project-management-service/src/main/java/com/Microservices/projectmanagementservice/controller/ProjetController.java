@@ -1,8 +1,8 @@
 package com.Microservices.projectmanagementservice.controller;
 
 
+import com.Microservices.projectmanagementservice.controller.Api.IProjetApi;
 import com.Microservices.projectmanagementservice.model.Dto.ProjetsDTO;
-import com.Microservices.projectmanagementservice.model.Entity.Projets;
 import com.Microservices.projectmanagementservice.model.ProjetResponse;
 import com.Microservices.projectmanagementservice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,33 +11,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/projets/")
-public class ProjetController {
+public class ProjetController implements IProjetApi {
     @Autowired
-    ProjectService projetsService;
+    ProjectService Service;
 
-    @PostMapping("add")
-    public Projets addProjet(@RequestBody Projets projets){
-        return projetsService.ajouterProjet(projets);
+    @Override
+    public ProjetsDTO creerProjets(ProjetsDTO Projets) {
+        return Service.createProject(Projets);
     }
 
-    @GetMapping("all")
-    public List<Projets> getAll(){
-        return projetsService.allProjets();
+    @Override
+    public void supprimerProjets(Long id) {
+        Service.deleteProject(id);
     }
 
-    @GetMapping("{id}")
-    public ProjetResponse projetWithTaches(@PathVariable Long id){
-        return projetsService.projetWithTaches(id);
+    @Override
+    public List<ProjetsDTO> getAllProjets() {
+        return Service.getAllProjects();
     }
 
-    @PutMapping("edit/{id}")
-    public Projets edit(@PathVariable Long id, @RequestBody Projets projets){
-        return projetsService.modifierProjet(id, projets);
+    @Override
+    public ProjetsDTO mettreAjourProjets(Long id, ProjetsDTO Projets) {
+        return Service.updateProject(id, Projets);
     }
 
-    @DeleteMapping("delete/{id}")
-    public void delete(@PathVariable Long id){
-        projetsService.supprimerProjet(id);
+    @Override
+    public ProjetsDTO getProjetsById(Long id) {
+        return Service.getProjectById(id);
+    }
+
+    @Override
+    public ProjetResponse getTachesByIdProjet(Long id) {
+        return Service.projetWithTaches(id);
     }
 }
