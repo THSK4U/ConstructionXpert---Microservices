@@ -1,10 +1,18 @@
 package com.Microservices.projectmanagementservice.model;
 
 import com.Microservices.projectmanagementservice.model.Entity.Taches;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProjetResponse {
     private String nom;
     private String description;
