@@ -1,13 +1,13 @@
-package com.Microservices.taskmanagementservice;
+package com.ConstructionXpert.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaskManagementServiceApplication {
+public class DiscoveryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskManagementServiceApplication.class, args);
+		SpringApplication.run(DiscoveryApplication.class, args);
 	}
 
 }
