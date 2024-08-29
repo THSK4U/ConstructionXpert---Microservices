@@ -8,11 +8,14 @@
         <option value="$PROJECT_DIR$/project-management-service/pom.xml" />
         <option value="$PROJECT_DIR$/resource-management-service/pom.xml" />
         <option value="$PROJECT_DIR$/task-management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/taches-management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/taches-management-service/pom.xml" />
       </set>
     </option>
   </component>

@@ -2,24 +2,40 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="project-management-service" />
         <module name="resource-management-service" />
         <module name="task-management-service" />
+        <module name="discovery" />
+      </profile>
+      <profile name="Annotation profile for project-management-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="project-management-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gateway" target="21" />
+      <module name="resources-management-service" target="21" />
+      <module name="taches-management-service" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="project-management-service" options="-parameters" />
       <module name="resource-management-service" options="-parameters" />
+      <module name="resources-management-service" options="-parameters" />
+      <module name="taches-management-service" options="-parameters" />
       <module name="task-management-service" options="-parameters" />
     </option>
   </component>
