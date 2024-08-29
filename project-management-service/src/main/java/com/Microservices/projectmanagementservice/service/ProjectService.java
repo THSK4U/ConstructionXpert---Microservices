@@ -1,5 +1,6 @@
 package com.Microservices.projectmanagementservice.service;
 
+
 import com.Microservices.projectmanagementservice.client.TachesClient;
 import com.Microservices.projectmanagementservice.model.Dto.ProjetsDTO;
 import com.Microservices.projectmanagementservice.model.Entity.Projets;
@@ -10,6 +11,7 @@ import com.Microservices.projectmanagementservice.repository.ProjetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,52 +19,68 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
 
+    @Autowired
+    private TachesClient tachesClient;
 
     @Autowired
-    ProjetsRepository projetsRepository;
+    private ProjetsMapper mapper;
+
     @Autowired
-    TachesClient tachesClient;
+    private ProjetsRepository projetsRepository;
 
-    public Projets ajouterProjet(Projets projet) {
-        return projetsRepository.save(projet);
+    public List<ProjetsDTO> getAllProjects() {
+        List<Projets> projets = projetsRepository.findAll();
+        System.out.println("find"+projets);
+        return projets.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Projets modifierProjet(Long id, Projets projet) {
-        Projets edited = new Projets();
-        edited.setId(id);
-        edited.setNom(projet.getNom());
-        edited.setDescription(projet.getDescription());
-        edited.setBudget(projet.getBudget());
-        edited.setDateDebut(projet.getDateDebut());
-        edited.setDateFin(projet.getDateFin());
-        return projetsRepository.save(edited);
+    public ProjetsDTO getProjectById(Long id) {
+        return projetsRepository.findById(id)
+                .map(mapper::toDTO).orElse(null);
     }
 
-    public List<Projets> allProjets() {
-        return projetsRepository.findAll();
+    public ProjetsDTO createProject(ProjetsDTO projectDTO) {
+        Projets projectEntity = mapper.toEntity(projectDTO);
+        Projets savedProjets = projetsRepository.save(projectEntity);
+        return mapper.toDTO(savedProjets);
     }
 
-    public void supprimerProjet(Long id) {
+    public ProjetsDTO updateProject(Long id, ProjetsDTO projectDTO) {
+        Optional<Projets> optional = projetsRepository.findById(id);
+        if (optional.isPresent()) {
+            Projets projets = optional.get();
+            projets.setNom(projectDTO.getNom());
+            projets.setDescription(projectDTO.getDescription());
+            projets.setBudget(projectDTO.getBudget());
+            projets.setDateDebut(projectDTO.getDateDebut());
+            projets.setDateFin(projectDTO.getDateFin());
+
+            Projets savedProjets = projetsRepository.save(projets);
+            return mapper.toDTO(savedProjets);
+        } else {
+            return null;
+        }
+    }
+
+    public void deleteProject(Long id) {
         projetsRepository.deleteById(id);
     }
 
     public ProjetResponse projetWithTaches(Long id) {
         Projets projet = projetsRepository.findById(id)
-                .orElse(
-                        Projets.builder()
-                                .nom("NOT_FOUND")
-                                .build()
-                );
+                .orElse(new Projets(null, "NOT_FOUND", null, null, null, null));
 
         List<Taches> taches = tachesClient.findAllTachesByProjet(id);
-
-        return new ProjetResponse.Builder()
-                .nom(projet.getNom())
+        ProjetResponse.Builder builder = new ProjetResponse.Builder();
+        builder.nom(projet.getNom())
+                .description(projet.getDescription())
                 .dateDebut(projet.getDateDebut())
                 .dateFin(projet.getDateFin())
-                .description(projet.getDescription())
                 .budget(projet.getBudget())
-                .taches(taches)
-                .build();
+                .taches(taches);
+        return builder.build();
     }
+
 }
