@@ -6,7 +6,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defautltZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 
 server:
   port: 8087
@@ -16,7 +16,7 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888
   datasource:
-    url: jdbc:mysql://localhost:3306/project_management_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/projets_management_db?createDatabaseIfNotExist=true
     username: root
     password: TAHAtaha
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,6 +25,5 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
-
 
 

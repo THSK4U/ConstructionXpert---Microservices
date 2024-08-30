@@ -3,7 +3,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defautltZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 
 server:
   port: 8089
@@ -21,6 +21,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 
