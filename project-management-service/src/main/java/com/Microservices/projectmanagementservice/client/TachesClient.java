@@ -10,7 +10,6 @@ import java.util.List;
 @FeignClient(name = "tache-service", url = "${application.config.taches-url}")
 public interface TachesClient {
 
-    @GetMapping("/projet/{id}")
+    @GetMapping("/Projet/{id}")
     List<Taches> findAllTachesByProjet(@PathVariable Long id);
 }
-
