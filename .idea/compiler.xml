@@ -7,12 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="GestionUtilisateurs-service" />
         <module name="project-management-service" />
         <module name="resource-management-service" />
         <module name="task-management-service" />
         <module name="discovery" />
         <module name="gateway" />
+      </profile>
+      <profile name="Annotation profile for GestionUtilisateurs-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="GestionUtilisateurs-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,7 +31,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="GestionUtilisateurs-service" options="-parameters" />
+      <module name="GestionUtilisateurs-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="project-management-service" options="-parameters" />
