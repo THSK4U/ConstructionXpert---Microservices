@@ -1,6 +1,6 @@
 application:
   config:
-    resource-url: http://localhost:8090
+    resource-url: http://localhost:8200
 eureka:
   instance:
     hostname: localhost
