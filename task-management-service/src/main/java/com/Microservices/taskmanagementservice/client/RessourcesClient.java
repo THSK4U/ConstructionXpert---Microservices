@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "ressources-service", url = "${application.config.taches-url}")
-public interface ressourcesClient {
+@FeignClient(name = "ressources-service", url = "${application.config.resource-url}")
+public interface RessourcesClient {
 
-    @GetMapping("/Tache/{id}")
+    @GetMapping("/Taches/Ressources/{id}")
     List<Ressources> findressourcesByTache(@PathVariable Long id);
 }
 

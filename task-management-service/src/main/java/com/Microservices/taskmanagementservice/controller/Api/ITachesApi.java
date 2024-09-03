@@ -3,10 +3,12 @@ package com.Microservices.taskmanagementservice.controller.Api;
 
 import com.Microservices.taskmanagementservice.model.Dto.TachesDTO;
 import com.Microservices.taskmanagementservice.model.Entity.Taches;
+import com.Microservices.taskmanagementservice.model.TachesResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ITachesApi {
     //creer
@@ -31,6 +33,9 @@ public interface ITachesApi {
 
     //By id and taches
     @GetMapping(value = "/Projet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Taches> getTachesByIdProjet(@PathVariable("id") Long id);
+    Optional<List<Taches>> getTachesByIdProjet(@PathVariable("id") Long id);
 
+    //get ress by idtach
+    @GetMapping(value = "/Ressources/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    TachesResponse getRessoursByIdProjet(@PathVariable("id") Long id);
 }

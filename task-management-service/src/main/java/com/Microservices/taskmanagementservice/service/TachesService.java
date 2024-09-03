@@ -1,7 +1,7 @@
 package com.Microservices.taskmanagementservice.service;
 
 
-import com.Microservices.taskmanagementservice.client.ressourcesClient;
+import com.Microservices.taskmanagementservice.client.RessourcesClient;
 import com.Microservices.taskmanagementservice.model.Dto.TachesDTO;
 import com.Microservices.taskmanagementservice.model.Entity.Ressources;
 import com.Microservices.taskmanagementservice.model.Entity.Taches;
@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class TachesService {
 
-    private ressourcesClient client;
+    @Autowired
+    private RessourcesClient ressourcesclient;
 
     @Autowired
     private TachesMapper mapper;
@@ -73,7 +74,7 @@ public class TachesService {
         Taches tache = TachesRepository.findById(id)
                 .orElse(new Taches(null, "NOT_FOUND", null, null, null, null));
 
-        List<Ressources> ressources = client.findressourcesByTache(id);
+        List<Ressources> ressources = ressourcesclient.findressourcesByTache(id);
 
         return TachesResponse.builder()
                 .description(tache.getDescription())

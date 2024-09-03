@@ -5,11 +5,14 @@ package com.Microservices.taskmanagementservice.controller;
 import com.Microservices.taskmanagementservice.controller.Api.ITachesApi;
 import com.Microservices.taskmanagementservice.model.Dto.TachesDTO;
 import com.Microservices.taskmanagementservice.model.Entity.Taches;
+import com.Microservices.taskmanagementservice.model.TachesResponse;
 import com.Microservices.taskmanagementservice.service.TachesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class TachesController implements ITachesApi {
@@ -43,7 +46,21 @@ public class TachesController implements ITachesApi {
     }
 
     @Override
-    public List<Taches> getTachesByIdProjet(Long id) {
-        return Service.getAllTachesByProjet(id);
+    public Optional<List<Taches>> getTachesByIdProjet(Long projectId) {
+        return Optional.ofNullable(Service.getAllTachesByProjet(projectId));
     }
+
+    @Override
+    public TachesResponse getRessoursByIdProjet(Long id) {
+        return Service.tachesWithressours(id);
+    }
+
 }
+
+
+
+
+
+
+
+

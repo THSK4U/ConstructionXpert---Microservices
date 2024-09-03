@@ -7,23 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="resource-management-service" />
-        <module name="task-management-service" />
         <module name="discovery" />
+        <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for project-management-service" enabled="true">
+      <profile name="Annotation profile for task-management-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
+        <module name="task-management-service" />
+        <module name="resource-management-service" />
         <module name="project-management-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gateway" target="21" />
       <module name="resources-management-service" target="21" />
       <module name="taches-management-service" target="21" />
     </bytecodeTargetLevel>

@@ -11,7 +11,6 @@ import com.Microservices.projectmanagementservice.repository.ProjetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,6 +70,7 @@ public class ProjectService {
     public ProjetResponse projetWithTaches(Long id) {
         Projets projet = projetsRepository.findById(id)
                 .orElse(new Projets(null, "NOT_FOUND", null, null, null, null));
+         System.out.println("ID = " + id);
 
         List<Taches> taches = tachesClient.findAllTachesByProjet(id);
         ProjetResponse.Builder builder = new ProjetResponse.Builder();
