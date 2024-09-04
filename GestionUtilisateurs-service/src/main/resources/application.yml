@@ -3,7 +3,7 @@ server:
 
 spring:
     application:
-        name: GestionUtilisateurs
+        name: GestionAuth
     config:
         import: optional:configserver:http://localhost:8888
     datasource:
@@ -27,3 +27,8 @@ spring:
 security:
     jwt:
         secret-key: 1HXHqNRFKtJzbnoSCDonruEp6rbWkU6q03CYhl00lP4boLcJiB5WqPwjoNj8ab7
+eureka:
+    client:
+        service-url:
+          defaultZone: http://localhost:8761/eureka
+
