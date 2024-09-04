@@ -1,6 +1,5 @@
 package com.Microservices.GestionUtilisateurs_service.Model.Dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponseDTO {
+public class UserDTO {
 
-    private String token;
+    private Long id;
+    private String username;
+    private String password;
+    private String role;
 
 }
+

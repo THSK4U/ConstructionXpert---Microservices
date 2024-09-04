@@ -1,0 +1,29 @@
+server:
+    port: 8070
+
+spring:
+    application:
+        name: GestionUtilisateurs
+    config:
+        import: optional:configserver:http://localhost:8888
+    datasource:
+        url: jdbc:mysql://localhost:3306/gestionUtilisateurs_management_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+        username: root
+        password: TAHAtaha
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+
+    security:
+        user:
+            name: ADMIN
+            password: ADMIN
+            roles: ADMIN
+
+# JWT Secret Key
+security:
+    jwt:
+        secret-key: 1HXHqNRFKtJzbnoSCDonruEp6rbWkU6q03CYhl00lP4boLcJiB5WqPwjoNj8ab7
