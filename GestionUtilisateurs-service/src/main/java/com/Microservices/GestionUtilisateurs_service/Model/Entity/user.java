@@ -24,17 +24,15 @@ public class user implements UserDetails {
     private Long id;
     private String username;
     private String password;
-    private String role;
 
-    public user(String username, String password, String role) {
+    public user(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of();
     }
 
     @Override
