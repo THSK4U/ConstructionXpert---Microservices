@@ -8,25 +8,32 @@ spring:
     import: optional:configserver:http://localhost:8888
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: false
-
-      mvc:
         routes:
           - id: Projet
             uri: http://localhost:8087
             predicates:
               - Path=/Projets/**
+            filters:
+              - AuthFilter
+
           - id: Ressources
             uri: http://localhost:8090
             predicates:
               - Path=/Ressources/**
+            filters:
+              - AuthFilter
+
           - id: Taches
             uri: http://localhost:8089
             predicates:
               - Path=/Taches/**
+            filters:
+              - AuthFilter
+
           - id: Auth
             uri: http://localhost:8070
             predicates:
               - Path=/Auth/**
+        discovery:
+          locator:
+            enabled: false
