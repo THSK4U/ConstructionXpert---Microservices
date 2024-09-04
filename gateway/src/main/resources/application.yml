@@ -26,3 +26,7 @@ spring:
             uri: http://localhost:8089
             predicates:
               - Path=/Taches/**
+          - id: Auth
+            uri: http://localhost:8070
+            predicates:
+              - Path=/Auth/**
