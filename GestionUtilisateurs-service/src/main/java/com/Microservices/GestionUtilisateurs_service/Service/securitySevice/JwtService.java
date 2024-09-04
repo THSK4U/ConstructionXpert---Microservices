@@ -23,7 +23,11 @@ public class JwtService {
     @Value("${security.jwt.secret-key}")
     private String secretKey;
 
-
+    public void validateToken(String token){
+        Jwts.parser().setSigningKey(getSigninKey())
+                .build()
+                .parseClaimsJws(token);
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -63,6 +67,7 @@ public class JwtService {
                 .builder()
                 .subject(user.getUsername())
                 .claim("id",user.getId())
+                .claim("username",user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000 ))
                 .signWith(getSigninKey())
