@@ -2,6 +2,9 @@ server:
   port: 8200
 
 spring:
+  main:
+    allow-circular-references: true
+
   application:
     name: gateway
   config:
