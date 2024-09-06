@@ -1,22 +1,21 @@
 package com.ConstructionXpert.gateway.filter;
 
+import com.ConstructionXpert.gateway.Client.AuthClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Component
+@Service
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
 
     @Autowired
-    private RouteValidator validator;
+    private AuthClient client;
 
     @Autowired
-    private RestTemplate template;
+    private RouteValidator validator;
 
     public AuthFilter() {
         super(Config.class);
@@ -31,14 +30,19 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                     throw new RuntimeException("Missing Auth Header");
                 }
                 String AuthHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if(AuthHeader!=null && AuthHeader.startsWith("Bearer")){
-                    AuthHeader = AuthHeader.substring(7);
+                if (AuthHeader == null || !AuthHeader.startsWith("Bearer ")) {
+                    throw new RuntimeException("Invalid Authorization Header Format");
                 }
-                try{
-                    System.out.println(AuthHeader);
-                    template.getForObject("http://localhost:8200/Auth/validate?token="+ AuthHeader, String.class);
-                }catch (Exception e){
-                    throw new RuntimeException("Auth missing");
+
+                String token = AuthHeader.substring(7);
+
+                try {
+                    // Validate the token by calling the auth-service
+                    System.out.println("Token: " + token);
+                    client.validateToken(token);
+                } catch (Exception e) {
+                    // Log and throw a specific exception for token validation failure
+                    throw new RuntimeException("Invalid or Expired Token", e);
                 }
             }
 
