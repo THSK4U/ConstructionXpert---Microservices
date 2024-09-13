@@ -37,6 +37,20 @@ spring:
             uri: http://localhost:8070
             predicates:
               - Path=/Auth/**
-        discovery:
-          locator:
-            enabled: false
+        globalcors:
+          add-to-simple-url-handler-mapping: true
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins:
+                - "http://localhost:4200"
+              allowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+              allowedHeaders:
+                - "*"
+              allowCredentials: true
+eureka:
+  client:
+    register-with-eureka: false
