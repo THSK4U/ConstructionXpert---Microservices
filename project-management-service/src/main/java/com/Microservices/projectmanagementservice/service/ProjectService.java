@@ -9,6 +9,10 @@ import com.Microservices.projectmanagementservice.model.Mapper.ProjetsMapper;
 import com.Microservices.projectmanagementservice.model.ProjetResponse;
 import com.Microservices.projectmanagementservice.repository.ProjetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +31,15 @@ public class ProjectService {
     @Autowired
     private ProjetsRepository projetsRepository;
 
-    public List<ProjetsDTO> getAllProjects() {
-        List<Projets> projets = projetsRepository.findAll();
-        System.out.println("find"+projets);
-        return projets.stream()
+    private Sort.Direction sortDirection;
+
+    public List<ProjetsDTO> getAllProjects(int page, int size ) {
+        Pageable pagnable = PageRequest.of(page, size);
+
+        Page<Projets> projets = projetsRepository.findAll(pagnable);
+        List<Projets> Listprojets = projets.getContent();
+
+        return Listprojets.stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -83,4 +92,26 @@ public class ProjectService {
         return builder.build();
     }
 
+//    //Find Project With Sorting
+//    public List<ProjetsDTO> findProjectWithSorting(String field) {
+//        List<Projets> projets = projetsRepository.findAllOrderedBy(field);
+//        System.out.println("find"+projets);
+//        return projets.stream()
+//                .map(mapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    //Outher Methods
+    public List<ProjetsDTO> findProjectWithSorting(String field, String direction) {
+
+        try {
+            sortDirection = Sort.Direction.valueOf(direction.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            sortDirection = Sort.Direction.ASC;
+        }
+        List<Projets> projets = projetsRepository.findAll(Sort.by(sortDirection,field));
+        return projets.stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }
