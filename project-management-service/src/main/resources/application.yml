@@ -1,6 +1,6 @@
 application:
   config:
-    taches-url: http://localhost:8089
+    taches-url: http://taches-service:8089
 eureka:
   instance:
     hostname: localhost
@@ -14,7 +14,7 @@ spring:
   application:
     name: project
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://config-server:8888
   datasource:
     url: jdbc:mysql://localhost:3306/projets_management_db?createDatabaseIfNotExist=true
     username: root
@@ -25,5 +25,3 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
-
-

@@ -18,7 +18,11 @@ public interface IProjetApi {
 
     //Tous
     @GetMapping(value = "/Projets", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<ProjetsDTO> getAllProjets();
+    List<ProjetsDTO> getAllProjets(@RequestParam(defaultValue = "0",required = false) int page, @RequestParam(defaultValue = "10",required = false) int size);
+
+    //Sort
+    @GetMapping("/Projets/sort/{field}/{direction}")
+    List<ProjetsDTO> getProjetWithSort(@PathVariable("field") String field,@PathVariable("direction") String direction);
 
     //mettre A Jour
     @PutMapping(value = "/Projets/MettreAjour/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
