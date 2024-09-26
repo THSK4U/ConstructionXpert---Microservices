@@ -7,6 +7,7 @@ import com.Microservices.projectmanagementservice.model.ProjetResponse;
 import com.Microservices.projectmanagementservice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class ProjetController implements IProjetApi {
     }
 
     @Override
-    public List<ProjetsDTO> getAllProjets() {
-        return Service.getAllProjects();
+    public List<ProjetsDTO> getAllProjets(int page, int size) {
+        return Service.getAllProjects(page, size);
     }
 
     @Override
@@ -44,4 +45,10 @@ public class ProjetController implements IProjetApi {
     public ProjetResponse getTachesByIdProjet(Long id) {
         return Service.projetWithTaches(id);
     }
+
+    @Override
+    public List<ProjetsDTO> getProjetWithSort(String field, String direction){
+        return Service.findProjectWithSorting(field, direction);
+    }
+
 }
